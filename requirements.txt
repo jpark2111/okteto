@@ -1,0 +1,6 @@
+
+
+rasa[spacy]==2.8.9
+
+# Sync with `Dockerfile`
+rasa-sdk==2.8.2

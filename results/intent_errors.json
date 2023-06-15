@@ -1,0 +1,18 @@
+[
+  {
+    "text": "1",
+    "intent": "startSession",
+    "intent_prediction": {
+      "name": "inform",
+      "confidence": 0.8913682699203491
+    }
+  },
+  {
+    "text": "2",
+    "intent": "startSession",
+    "intent_prediction": {
+      "name": "inform",
+      "confidence": 0.8913682699203491
+    }
+  }
+]

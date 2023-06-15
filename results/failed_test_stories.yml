@@ -1,0 +1,67 @@
+version: "2.0"
+stories:
+- story: from Rasa X 56efe3eaf7c0456db86a6669421f885c (./tests/test_stories.yml)
+  steps:
+  - intent: help
+  - action: utter_help
+  - intent: greet
+  - action: utter_greet  # predicted: action_greet
+  - action: utter_help  # predicted: action_listen
+  - intent: thankyou
+  - action: utter_noworries
+- story: from Rasa X 56efe3eaf7c0456db86a6669421f885c (if intent were right) (./tests/test_stories.yml)
+  steps:
+  - intent: help
+  - action: utter_help
+  - intent: greet
+  - action: utter_greet  # predicted: action_greet
+  - action: utter_help  # predicted: action_listen
+  - intent: affirm
+  - action: utter_ok
+- story: greet + search transactions happy path + thankyou (./tests/test_stories.yml)
+  steps:
+  - intent: greet
+  - action: utter_greet  # predicted: action_greet
+  - action: utter_help  # predicted: action_listen
+  - intent: search_transactions
+  - action: transaction_search_form
+  - active_loop: transaction_search_form
+  - active_loop: null
+  - action: action_transaction_search
+  - intent: thankyou
+  - action: utter_noworries
+- story: greet/bye path (./tests/test_stories.yml)
+  steps:
+  - intent: greet
+  - action: utter_greet  # predicted: action_greet
+  - action: utter_help  # predicted: action_listen
+  - intent: goodbye
+  - action: utter_goodbye
+- story: transfer money, while in form ask balance (./tests/test_stories.yml)
+  steps:
+  - intent: transfer_money
+  - action: transfer_money_form
+  - active_loop: transfer_money_form
+  - intent: check_balance  # predicted: mx_accountbalance: What is my account balance?
+    entities: []
+  - slot_was_set:
+    - amount-of-money: current balance
+  - action: action_show_balance
+  - action: transfer_money_form
+  - slot_was_set:
+    - requested_slot: null
+  - active_loop: null
+  - action: action_transfer_money
+- story: providing a name must be inform intent (./tests/test_stories.yml)
+  steps:
+  - intent: transfer_money
+  - action: transfer_money_form
+  - active_loop: transfer_money_form
+  - slot_was_set:
+    - AA_CONTINUE_FORM: yes
+  - slot_was_set:
+    - requested_slot: PERSON
+  - slot_was_set:
+    - PERSON: lisa
+  - slot_was_set:
+    - requested_slot: amount-of-money
