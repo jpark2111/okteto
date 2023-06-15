@@ -11,6 +11,7 @@ services:
     depends_on:
       - duckling
       - app
+    public: true
   app:
     restart: always
     image: "jpark2111/wb_rasa_action:test"
